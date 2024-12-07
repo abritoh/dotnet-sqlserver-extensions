@@ -2,7 +2,7 @@
 
 ## Introduction
 
-SQL Server objects developed in .NET platform provide a powerful means to extend SQL Server functionality by allowing to write stored procedures using .NET languages such as C#. This approach leverages the robustness of the .NET framework to introduce advanced custom logic and seamlessly integrate it into SQL Server databases. 
+**SQL Server objects developed on the .NET platform** provide a powerful method to extend SQL Server functionality by **enabling the creation of stored procedures, functions, triggers, views, and other database objects using .NET languages such as C#**. This approach leverages the robustness of the .NET framework to introduce advanced custom logic, integrate complex business rules, and enhance SQL Server’s built-in features. By effectively integrating the capabilities of .NET with SQL Server, this method not only improves the maintainability and reusability of database objects but also allows for the development of sophisticated solutions that can better meet business and technical requirements.
 
 ## Benefits
 
@@ -13,18 +13,21 @@ SQL Server objects developed in .NET platform provide a powerful means to extend
 
 ## Summary
 
-Implementing SqlServer objects via the .NET platform offers a powerful and flexible approach to extend SQL Server capabilities while providing a robust mechanism to address advanced business requirements. By utilizing the advanced features of the .NET framework, this method enables the creation of sophisticated logic that enhances SQL Server databases. This approach not only improves code maintainability and reusability but also ensures seamless integration between .NET and SQL Server functionalities.
+Implementing SqlServer objects via the .NET platform offers a powerful and flexible approach to extend SQL Server features while providing a robust mechanism to address advanced business requirements. By utilizing the capabilities of the .NET framework, this method enables the creation of sophisticated logic that enhances SQL Server databases. This approach not only improves code maintainability and reusability but also ensures cohesive integration between .NET and SQL Server functionalities.
 ___
 
 
 ```csharp
-
+namespace ClusterBRSqlServerObjects
+{
+    public class SP
+    {
         [SqlProcedure]
         public static int SP_System_SendEmail
             (int smtpClient, string host, int port, 
             int enableSSL, int useDefCredential, 
-            string from, string psw, string to, string subject, 
-            string body, out string outmsg)
+            string from, string psw, string to, 
+            string subject, string body, out string outmsg)
         {
             int result = 0;
             try
@@ -55,10 +58,13 @@ ___
                     ? string.Format (Constants.FORMAT_EXCEPTION_INTERNAL,
                         ex.Source, ex.Message, 
                         ex.InnerException.Source, ex.InnerException.Message)
-                    : string.Format (Constants.FORMAT_EXCEPTION, ex.Source, ex.Message);
+                    : string.Format (Constants.FORMAT_EXCEPTION, 
+                        ex.Source, ex.Message);
 
                 result = Constants.FAILURE;
             }
             return result;
         }
+    }
+}
 ```
